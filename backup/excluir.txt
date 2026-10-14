@@ -1,0 +1,64 @@
+# Padrões que o restic NÃO copia (restic backup --exclude-file excluir.txt).
+# Um padrão por linha; ** = qualquer profundidade; vale para todas as pastas do backup.
+#
+# Critério: só o que se REGENERA (dependência, build, cache) ou mídia pesada de saída.
+# NÃO se exclui por .gitignore: o que está no .gitignore e não se regenera (.env, .dev.vars,
+# cofre.md do DÜ SOL, gravações, dados locais) é justamente o que o GitHub não guarda —
+# é o motivo de existir este backup.
+
+# Dependências
+**/node_modules
+**/.venv
+**/venv
+**/.pnpm-store
+**/bower_components
+
+# Flutter / Dart / Android
+**/.dart_tool
+**/.gradle
+**/.cxx
+**/.flutter-plugins-dependencies
+**/ios/Pods
+
+# Build e saídas geradas
+**/build
+**/dist
+**/.next
+**/.nuxt
+**/.svelte-kit
+**/.turbo
+**/.parcel-cache
+**/coverage
+**/saidas
+
+# Cloudflare / ferramentas
+**/.wrangler
+**/.cache
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+
+# Playwright
+**/playwright-report
+**/test-results
+**/blob-report
+
+# Mídia pesada de saída (vídeo renderizado se refaz pela esteira; o restic também
+# pula qualquer arquivo > 200 MB via --exclude-larger-than no rodar-backup.ps1)
+**/*.mp4.part
+**/*.tmp
+
+# Lixo do sistema
+**/Thumbs.db
+**/desktop.ini
+
+# ~/.claude: fica o que importa (projects/ com o histórico .jsonl e a memory/, skills/,
+# settings.json, plugins instalados). Sai o que é cache, sessão viva ou credencial
+# (o login do Claude Code se refaz; não há por que guardar o token num backup).
+**/.claude/cache
+**/.claude/shell-snapshots
+**/.claude/session-env
+**/.claude/ide
+**/.claude/.credentials.json
+**/.claude/plugins/cache
