@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="10" y="10" width="236" height="236" rx="46" fill="#11131A" stroke="#60A5FA" stroke-width="9"/>
+  <!-- pasta: aba + corpo, com um "</>" discreto de código -->
+  <path d="M52 86 Q52 72 66 72 H104 Q112 72 118 80 L126 90 H190 Q204 90 204 104 V110 H52 Z" fill="#3B82F6"/>
+  <rect x="52" y="100" width="152" height="96" rx="14" fill="#60A5FA"/>
+  <g fill="none" stroke="#11131A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M108 130 L92 148 L108 166"/>
+    <path d="M148 130 L164 148 L148 166"/>
+    <path d="M134 126 L122 170"/>
+  </g>
+</svg>
