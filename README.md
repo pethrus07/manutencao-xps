@@ -4,14 +4,17 @@ Scripts gerados na limpeza de **07/09/2026**. Cada um pede UAC sozinho e grava u
 
 | Script | O que faz | Rodar quando |
 |---|---|---|
-| `1-limpeza-admin.ps1` | Recria o `hiberfil.sys` e desliga o Fast Startup (correção dos "desligamentos inesperados"); Limpeza de Disco do Windows nas categorias seguras (logs de upgrade, relatórios de erro, temporários do sistema, cache do Windows Update, drivers antigos); `DISM StartComponentCleanup`; TRIM; 13 atualizações seguras via winget. **Só usa ferramentas do próprio Windows e não toca em arquivo seu.** | Agora. Leva 10 a 25 min. |
+| `1-limpeza-admin.ps1` | Ponto de restauração; recria o `hiberfil.sys` e desliga o Fast Startup (correção dos "desligamentos inesperados"); **pergunta** se suspende o BitLocker por 1 reinício para relacrar a chave no TPM (só depois de você confirmar a chave de recuperação); liga e sincroniza o relógio (NTP.br); Limpeza de Disco do Windows nas categorias seguras; `DISM StartComponentCleanup`; TRIM; ~20 atualizações seguras via winget (pula Git/Node/Python se o VS Code estiver aberto e o Docker se estiver rodando); drivers Dell, incluindo o Intel RST. Resumo final lido do sistema. **Só usa ferramentas do próprio Windows e não toca em arquivo seu.** Revisto em 19/10/2026. | Na tomada, VS Code fechado. 15 a 30 min, e reiniciar no fim. |
+| `1-limpeza-admin.ps1 -DesligarHibernacao` | Plano B: desliga a hibernação de vez (ganha 12,7 GB) e troca a ação de bateria crítica de Hibernar para Desligar. | Só se o teste do `shutdown /h` falhar depois do reinício. |
+| `esconder-janelas-tarefas.ps1` + `rodar-escondido.vbs` | Faz as tarefas agendadas (QA-Radar, Sinapse, Redação do Instituto) rodarem sem piscar cmd: o `.vbs` roda o comando com o console escondido, espera e devolve o código de saída ao Agendador. `-Desfazer` volta ao original. Sem admin. **Aplicado em 19/10/2026.** | Já aplicado. Rodar de novo se recriar alguma dessas tarefas. |
 | `2-remocoes-opcionais.ps1` | Menu S/N item a item: bloatware Dell, Killer Control Center, apps de loja da Microsoft, instalador do RDR2 em Downloads (91,6 GB), uTorrent Web, cache de shaders NVIDIA, cache do Opera GX, WebStorage do VS Code, compactar disco do Docker. **Nada roda sem você responder S.** | Quando tiver 10 min para decidir. |
 | `3-powershell-76.ps1` | Atualiza o PowerShell 7.4 (suporte acaba em **10/11/2026**) para o **7.6 LTS** pelo MSI do winget, no mesmo `C:\Program Files\PowerShell\7`, e confere versão, PATH e PSReadLine depois. Roda no Windows PowerShell 5.1 (o pwsh 7 não pode estar aberto). | Com o **VS Code fechado** e nenhuma janela do PowerShell 7 aberta. 2 a 5 min. |
 
 ## Depois de rodar o 1
 
-1. Teste a hibernação: Iniciar > Desligar > **Hibernar** (ou `shutdown /h`). Ao ligar, as janelas têm que voltar.
-2. Se voltar como boot frio de novo: `powercfg /h off` (ganha 12,7 GB) e atualize **BIOS + Intel RST** no site da Dell. A causa provável é o controlador Intel VMD (o disco aparece como `BusType RAID`).
+1. **Reinicie.** Drivers e o relacre do BitLocker entram nesse reinício.
+2. Teste a hibernação: abra umas janelas e rode `shutdown /h`. Ao ligar, as janelas têm que voltar.
+3. Se voltar como boot frio de novo: `1-limpeza-admin.ps1 -DesligarHibernacao`. O BIOS 1.48 (15/10) já não resolveu; as suspeitas são o Intel RST/VMD de 2022 (o disco aparece como `BusType RAID`) e a chave do BitLocker que não sai do TPM na retomada (erro 24641).
 3. Apague manualmente a pasta `C:\Drivers` (1,2 GB): são os pacotes de driver de fábrica de 2021, já instalados.
 
 ## Ainda pendente, fora dos scripts
