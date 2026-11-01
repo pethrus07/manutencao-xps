@@ -24,6 +24,19 @@ Scripts gerados na limpeza de **07/09/2026**. Cada um pede UAC sozinho e grava u
 - Windows Update tem um driver Realtek pendente: ao instalar, conferir se o mic voltou a ter processamento (Waves APO) e refazer o `Disable_SysFx` se precisar.
 - Docker Desktop 4.83 → 4.90: atualizar à mão, com containers parados. (PowerShell 7.6: ver `3-powershell-76.ps1`.)
 
+## Bateria (medida em 01/11/2026)
+`powercfg /batteryreport`: projeto **84.292 mWh**, carga cheia hoje **46.808 mWh**, ou seja **55,5%** de
+saúde. Fabricante BYD, modelo DELL M59JH18 (a de 86 Wh, 6 células).
+- **Saúde perdida não volta.** Calibrar, descarregar até zero ou "resetar" não recupera capacidade: só
+  muda o que o medidor mostra.
+- **O conserto é trocar a bateria.** Códigos da peça original: **M59JH / 8FCTC / 69KF2 / 70N2F** (86 Wh,
+  11,4 V). Lá fora sai por volta de US$ 60–100; no Brasil, procurar por "M59JH" ou "8FCTC" e conferir se é
+  original. "69KF2" aparece muito em paralela. A troca é por baixo (tampa com parafusos Torx); fazer
+  com o notebook desligado e a bateria desconectada antes de mexer em qualquer coisa.
+- **O que protege a bateria (atual e a próxima):** o notebook vive na tomada, e ficar em 100% o tempo
+  todo é o que mais envelhece. No BIOS (F2 ao ligar) → *Power* → *Battery Charge Configuration* →
+  **Custom, iniciar em 50% e parar em 80%** (ou *Primarily AC use*). Não precisa de programa nenhum.
+
 ## Backup externo (preparado em 14/10/2026, sem admin)
 
 Pasta `backup/`: backup diário com **restic** para o **Cloudflare R2** (conta pessoal) de `Projetos`
