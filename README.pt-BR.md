@@ -3,7 +3,7 @@
 [English](README.md) · Português
 
 Scripts de manutenção de um notebook Dell XPS 15 9510 com Windows 11, e o registro do que foi medido nele.
-Status: em uso (11/2026). Sem sistema, sem diagrama. Todos os direitos reservados.
+Status: em uso (11/2026). Sem sistema, sem diagrama. Licença: MIT, veja [LICENSE](LICENSE).
 
 Inventário das tarefas agendadas (o que faz, quando, dono, quando desligar): [TAREFAS-AGENDADAS.md](TAREFAS-AGENDADAS.md).
 

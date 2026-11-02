@@ -3,7 +3,7 @@
 English · [Português](README.pt-BR.md)
 
 Maintenance scripts for a Dell XPS 15 9510 laptop running Windows 11, and a record of what was measured on it.
-Status: in use (2026-11). No system, no diagram. All rights reserved.
+Status: in use (2026-11). No system, no diagram. License: MIT, see [LICENSE](LICENSE).
 
 Scheduled task inventory (what each one does, when, owner, when to turn it off):
 [TAREFAS-AGENDADAS.md](TAREFAS-AGENDADAS.md) (Portuguese).
