@@ -1,4 +1,4 @@
-# Manutenção do XPS 15 9510
+# XPS 15 9510
 
 [English](README.md) · Português
 
