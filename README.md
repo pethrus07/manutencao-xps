@@ -3,7 +3,12 @@
 English · [Português](README.pt-BR.md)
 
 Maintenance scripts for a Dell XPS 15 9510 laptop running Windows 11, and a record of what was measured on it.
-Status: in use (2026-11). No system, no diagram. License: MIT, see [LICENSE](LICENSE).
+
+## Status
+
+In use (2026-11). A set of scripts, not a system.
+
+## What it does
 
 Scheduled task inventory (what each one does, when, owner, when to turn it off):
 [TAREFAS-AGENDADAS.md](TAREFAS-AGENDADAS.md) (Portuguese).
@@ -70,3 +75,11 @@ for 50 to 100 GB; 10 GB free) and restore test in [`backup/README.md`](backup/RE
   fingerprint in `.gitleaksignore`. **Never `--no-verify`.**
 - A repo with a **local** `core.hooksPath` skips the global one: today only `sinapse` (`.githooks`), where gitleaks
   does **not** run until someone decides (see the pending item in the 2026-10-14 report).
+
+## Architecture
+
+Diagrams (use cases, process, C4) in [docs/arquitetura/](docs/arquitetura/README.md).
+
+## License
+
+MIT. See [LICENSE](LICENSE).
