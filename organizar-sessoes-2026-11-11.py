@@ -20,6 +20,18 @@ VSDB = os.path.join(os.environ["APPDATA"], r"Code\User\globalStorage\state.vscdb
 CHAVE = "Anthropic.claude-code"
 WORKSPACE = r"C:\Users\olive"  # a lista de sessões desta pasta (sessionGroups:<pasta>)
 
+# A extensão não tem "fixar"/"favoritar": o atalho é um grupo no TOPO, sempre aberto, com o que está em uso.
+# Uma sessão fica em um grupo só: a que está aqui sai do grupo da origem. Para trocar, edite esta lista.
+ATIVOS_NOME = "★ Ativos"
+ATIVOS = [
+    "882197a8",  # planejamento
+    "f6c0b658",  # Central da Parresia 03 (a mais recente)
+    "c8974836",  # Central do Valdir
+    "e1917436",  # Central do Desbravando 02 (a mais recente)
+    "6bf320c9",  # Retífica: pedidos do James
+    "acbc1356",  # faculdade: grupo CodeCare
+]
+
 # grupo -> {prefixo do id: título}. A ordem dos grupos é a ordem na barra lateral.
 GRUPOS = {
     "Planejamento": {
@@ -100,6 +112,7 @@ def resolver(prefixo):
 
 
 def main():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # o terminal do Windows (cp1252) não escreve "★"
     simular = "--simular" in sys.argv
     sem_grupos = "--sem-grupos" in sys.argv
     if not simular and vscode_aberto():
@@ -140,12 +153,18 @@ def main():
     if not sem_grupos:
         chave_g = f"sessionGroups:{WORKSPACE}"
         antigos = estado.get(chave_g, [])
-        manter = [g for g in antigos if g.get("sessionIds")]  # grupo vazio ("New group") sai
+        # os grupos deste script são refeitos a cada execução; grupo vazio ("New group") sai; grupo que você
+        # criou à mão com outro nome fica, e as sessões dele não são mexidas
+        meus = set(GRUPOS) | {ATIVOS_NOME}
+        manter = [g for g in antigos if g.get("sessionIds") and g.get("name") not in meus]
         ja_agrupadas = {s for g in manter for s in g["sessionIds"]}
+        ativos = [sid for p in ATIVOS for sid in [resolver(p)] if sid and sid not in ja_agrupadas]
+        topo = [{"id": str(uuid.uuid4()), "name": ATIVOS_NOME, "collapsed": False, "sessionIds": ativos}]
         novos = [{"id": str(uuid.uuid4()), "name": nome, "collapsed": True,
-                  "sessionIds": [sid for sid, _ in itens if sid not in ja_agrupadas]}
+                  "sessionIds": [sid for sid, _ in itens if sid not in ja_agrupadas and sid not in ativos]}
                  for nome, itens in grupos.items()]
-        estado[chave_g] = manter + novos
+        novos = topo + [g for g in novos if g["sessionIds"]]
+        estado[chave_g] = novos + manter
         print(f"3. grupos: " + " · ".join(f"{g['name']} ({len(g['sessionIds'])})" for g in novos)
               + (f"; mantidos {len(manter)} grupos que você já tinha" if manter else ""))
 
