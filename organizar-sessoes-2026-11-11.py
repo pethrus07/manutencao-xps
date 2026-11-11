@@ -1,4 +1,4 @@
-# Organiza as sessões do Claude Code (11/11/2026): títulos "[origem] tema", desarquiva e agrupa.
+# Organiza as sessões do Claude Code (11/11/2026): títulos por frente/assunto, desarquiva e agrupa.
 #
 #   1. Título: acrescenta uma linha custom-title no fim de cada .jsonl do pool (a última vale; nada é apagado).
 #   2. Desarquiva: tira da lista hiddenSessionIds do VS Code as sessões que existem e limpa as que já sumiram
@@ -22,81 +22,89 @@ WORKSPACE = r"C:\Users\olive"  # a lista de sessões desta pasta (sessionGroups:
 
 # A extensão não tem "fixar"/"favoritar": o atalho é um grupo no TOPO, sempre aberto, com o que está em uso.
 # Uma sessão fica em um grupo só: a que está aqui sai do grupo da origem. Para trocar, edite esta lista.
+# Critério de 11/11/2026: as centrais (canais por cliente) + o que teve conversa nos últimos 3 dias.
 ATIVOS_NOME = "★ Ativos"
 ATIVOS = [
     "882197a8",  # planejamento
-    "f6c0b658",  # Central da Parresia 03 (a mais recente)
-    "c8974836",  # Central do Valdir
-    "e1917436",  # Central do Desbravando 02 (a mais recente)
+    "9746f500",  # Parresia: Central 01 (Desk, WhatsApp, daily)
+    "e9c8eabc",  # Parresia: Central 02 (lançamento do Unio)
+    "f6c0b658",  # Parresia: Central 03 (Frota WP, UltraPack)
+    "098e7720",  # Parresia: feedbacks do Unio
+    "c8974836",  # Celiware: Central do Valdir
+    "e1917436",  # Desbravando: Central 02
     "6bf320c9",  # Retífica: pedidos do James
-    "acbc1356",  # faculdade: grupo CodeCare
+    "acbc1356",  # Faculdade: grupo CodeCare
+    "78ce7d1f",  # Faculdade: seminário do Grupo 2
+    "e51e9ec8",  # Pessoal: presente da Duda (aniversário 17/11)
 ]
 
+# Título sem "[origem]": o grupo já diz a origem. Começa pela frente ou pelo assunto, que se reconhece
+# sozinho também no ★ Ativos, onde as origens se misturam ("Unio ·", "Central Parresia 02 ·", "APS ·").
 # grupo -> {prefixo do id: título}. A ordem dos grupos é a ordem na barra lateral.
 GRUPOS = {
     "Planejamento": {
-        "882197a8": "[planejamento] Nov/2026: revisão geral, captação, finanças e Hermes",
+        "882197a8": "Planejamento nov/2026 · revisão, captação, finanças e Hermes",
     },
     "Parresia": {
-        "9746f500": "[parresia] Central 01 · Desk, WhatsApp e daily",
-        "e9c8eabc": "[parresia] Central 02 · Lançamento do Unio",
-        "f6c0b658": "[parresia] Central 03 · Frota WP: rollout do UltraPack",
-        "dc7fd131": "[parresia] Faxina dos cards no ClickUp e contas de QA",
-        "098e7720": "[parresia/unio] Feedbacks de usabilidade do grupo",
-        "64168bfb": "[parresia/unio] QA nível 1 e 2 em produção",
-        "8cec31ca": "[parresia/koynus] Planejamento: M28/M30 e WhatsApp",
-        "93c8b09f": "[parresia/koynus] Desk: StackLab Kanban Pro e tema",
-        "8d0aae10": "[parresia/frota] Padrão de plugins v1 e dailys",
-        "7c209d23": "[parresia/frota] Chave SSH dos servidores WP e acessos no DÜ SOL",
-        "301f6217": "[parresia/mettria] Tutoriais em vídeo: roteiro, notas e card",
-        "2794475e": "[parresia/cnbb] Liturgia das Horas: falha e publicação até jan/27",
-        "23682d7f": "[parresia/suporte] SUP-1025: lentidão da Rádio Frei Galvão",
-        "fc244b2e": "[parresia/suporte] SUP-1055: QA do site da Paróquia de Iconha",
-        "7c431743": "[parresia/suporte] QA Itapetininga: de-para, checklist e evidências",
+        "9746f500": "Central Parresia 01 · Desk, WhatsApp e daily",
+        "e9c8eabc": "Central Parresia 02 · Lançamento do Unio",
+        "f6c0b658": "Central Parresia 03 · Frota WP: rollout do UltraPack",
+        "dc7fd131": "ClickUp · faxina dos cards e contas de QA",
+        "098e7720": "Unio · feedbacks de usabilidade do grupo",
+        "64168bfb": "Unio · QA nível 1 e 2 em produção",
+        "8cec31ca": "Koynus · planejamento M28/M30 e WhatsApp",
+        "93c8b09f": "Koynus · Desk: StackLab Kanban Pro e tema",
+        "8d0aae10": "Frota WP · padrão de plugins v1 e dailys",
+        "7c209d23": "Frota WP · chave SSH dos servidores e acessos no DÜ SOL",
+        "301f6217": "Mettria · tutoriais em vídeo: roteiro, notas e card",
+        "2794475e": "CNBB · Liturgia das Horas: falha e publicação até jan/27",
+        "23682d7f": "SUP-1025 · lentidão da Rádio Frei Galvão",
+        "fc244b2e": "SUP-1055 · QA do site da Paróquia de Iconha",
+        "7c431743": "QA Itapetininga · de-para, checklist e evidências",
     },
     "Celiware": {
-        "c8974836": "[celiware] Central 01 · Valdir",
-        "8e56f520": "[celiware] Parceria com o Valdir: contrato de 6 meses",
-        "95d8559b": "[celiware] Ware IoT: versões 1.4/1.5, site e Play Store",
-        "0b4f8dc7": "[celiware] Fábrica de Conteúdo: briefing e piloto Padrão TEX",
-        "b5c31e67": "[celiware] Site Inovance Brasil: viabilidade e preço",
-        "090d91e7": "[celiware] Orçamento do MVP ManagementAI (Thiago)",
-        "19a0f650": "[celiware/instituto] Esteira de artigos e falhas do Publicar",
-        "fbba2f2f": "[celiware/instituto] Teste automático (responda ok)",
+        "c8974836": "Central Valdir 01",
+        "8e56f520": "Parceria Valdir · contrato de 6 meses",
+        "95d8559b": "Ware IoT · versões 1.4/1.5, site e Play Store",
+        "0b4f8dc7": "Fábrica de Conteúdo · briefing e piloto Padrão TEX",
+        "b5c31e67": "Inovance · site: viabilidade e preço",
+        "090d91e7": "ManagementAI · orçamento do MVP (Thiago)",
+        "19a0f650": "Instituto · esteira de artigos e falhas do Publicar",
+        "fbba2f2f": "Instituto · teste automático (responda ok)",
     },
     "Desbravando": {
-        "811c36d0": "[desbravando] Central 01",
-        "e1917436": "[desbravando] Central 02",
-        "cba9a24f": "[desbravando] Artes: crachá, camiseta, cardápio e formulários",
+        "811c36d0": "Central Desbravando 01",
+        "e1917436": "Central Desbravando 02",
+        "cba9a24f": "Desbravando · artes: crachá, camiseta, cardápio e formulários",
     },
     "Retífica": {
-        "6bf320c9": "[retífica] Aceite, mensalidade e pedidos do James",
+        "6bf320c9": "Retífica · aceite, mensalidade e pedidos do James",
     },
     "Faculdade": {
-        "2e6f9f35": "[faculdade] APS: projeto final Rufus Bank",
-        "a1c9b5cb": "[faculdade] Itinerário Extensionista: backend do Conecta+",
-        "78ce7d1f": "[faculdade] Seminário Grupo 2: transferência confiável",
-        "dcdafea1": "[faculdade] Avaliações online de 30/10 (Cálculo II e outras)",
-        "71bd1b21": "[faculdade] Prova de NoSQL: MongoDB, SQLite e Redis",
-        "f9b5686e": "[faculdade] Eng. de Software: caso de uso do app de eventos",
-        "26c7f2c5": "[faculdade] Perícia Forense: prática de aquisição (aula 04)",
-        "510e4eab": "[faculdade] Perícia Forense: práticas forenses (aula 05)",
-        "acbc1356": "[faculdade] Grupo CodeCare: proposta e mensagem ao professor",
+        "2e6f9f35": "APS · projeto final Rufus Bank",
+        "a1c9b5cb": "Itinerário Extensionista · backend do Conecta+",
+        "78ce7d1f": "Seminário Grupo 2 · transferência confiável",
+        "dcdafea1": "Avaliações online de 30/10 · Cálculo II e outras",
+        "71bd1b21": "NoSQL · prova: MongoDB, SQLite e Redis",
+        "f9b5686e": "Eng. de Software · caso de uso do app de eventos",
+        "26c7f2c5": "Perícia Forense · prática de aquisição (aula 04)",
+        "510e4eab": "Perícia Forense · práticas forenses (aula 05)",
+        "acbc1356": "CodeCare · proposta ao grupo e mensagem ao professor",
     },
     "Sistemas": {
-        "60be9ed0": "[sistemas] Faxina geral: Ágora, Sinapse, esteira, Cosmos, PC",
-        "115141a0": "[sistemas] Esteira de QA universal: construção e pesquisa",
-        "cb1b6068": "[sistemas] Títulos das sessões, memória e Sinapse",
-        "ab7f8db8": "[sistemas] Máquina: janelas de cmd piscando no boot",
+        "60be9ed0": "Faxina geral · Ágora, Sinapse, esteira, Cosmos, PC",
+        "115141a0": "Esteira de QA universal · construção e pesquisa",
+        "cb1b6068": "Sessões do Claude · títulos, memória e Sinapse",
+        "ab7f8db8": "Máquina · janelas de cmd piscando no boot",
     },
     "Pessoal": {
-        "e51e9ec8": "[pessoal] Presente de aniversário da Duda (boinas)",
-        "25868821": "[pessoal] Rolê de sexta à noite em JP",
-        "b337c786": "[pessoal] Golpe de emprego pelo WhatsApp",
-        "3326949b": "[pessoal] Galeria de fotos com IA local",
-        "dfb2c04f": "[pessoal] TV AOC 55: compra, análise e devolução",
-        "67bec197": "[pessoal] Fantasia a partir do corte de cabelo",
-        "f5b299e3": "[pessoal] Foto de perfil do WhatsApp (edição RYZE)",
+        "e51e9ec8": "Presente da Duda · boinas (aniversário 17/11)",
+        "25868821": "Rolê de sexta à noite em JP",
+        "b337c786": "Golpe de emprego pelo WhatsApp",
+        "3326949b": "Galeria de fotos com IA local",
+        "dfb2c04f": "TV AOC 55 · compra, análise e devolução",
+        "67bec197": "Fantasia a partir do corte de cabelo",
+        "f5b299e3": "Foto de perfil do WhatsApp · edição RYZE",
     },
 }
 
