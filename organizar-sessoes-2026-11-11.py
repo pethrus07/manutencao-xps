@@ -69,6 +69,7 @@ GRUPOS = {
         "f9b5686e": "[faculdade] Eng. de Software: caso de uso do app de eventos",
         "26c7f2c5": "[faculdade] Perícia Forense: prática de aquisição (aula 04)",
         "510e4eab": "[faculdade] Perícia Forense: práticas forenses (aula 05)",
+        "acbc1356": "[faculdade] Grupo CodeCare: proposta e mensagem ao professor",
     },
     "Sistemas": {
         "60be9ed0": "[sistemas] Faxina geral: Ágora, Sinapse, esteira, Cosmos, PC",
