@@ -20,26 +20,12 @@ VSDB = os.path.join(os.environ["APPDATA"], r"Code\User\globalStorage\state.vscdb
 CHAVE = "Anthropic.claude-code"
 WORKSPACE = r"C:\Users\olive"  # a lista de sessões desta pasta (sessionGroups:<pasta>)
 
-# A extensão não tem "fixar"/"favoritar": o atalho é um grupo no TOPO, sempre aberto, com o que está em uso.
-# Uma sessão fica em um grupo só: a que está aqui sai do grupo da origem. Para trocar, edite esta lista.
-# Critério de 11/11/2026: as centrais (canais por cliente) + o que teve conversa nos últimos 3 dias.
-ATIVOS_NOME = "★ Ativos"
-ATIVOS = [
-    "882197a8",  # planejamento
-    "9746f500",  # Parresia: Central 01 (Desk, WhatsApp, daily)
-    "e9c8eabc",  # Parresia: Central 02 (lançamento do Unio)
-    "f6c0b658",  # Parresia: Central 03 (Frota WP, UltraPack)
-    "098e7720",  # Parresia: feedbacks do Unio
-    "c8974836",  # Celiware: Central do Valdir
-    "e1917436",  # Desbravando: Central 02
-    "6bf320c9",  # Retífica: pedidos do James
-    "acbc1356",  # Faculdade: grupo CodeCare
-    "78ce7d1f",  # Faculdade: seminário do Grupo 2
-    "e51e9ec8",  # Pessoal: presente da Duda (aniversário 17/11)
-]
+# Sem grupo de ativos (11/11/2026: Pedro preferiu só os grupos por origem, todos recolhidos).
+ATIVOS_NOME = "★ Ativos"  # se existir de uma execução anterior, é removido
+ATIVOS = []
 
 # Título sem "[origem]": o grupo já diz a origem. Começa pela frente ou pelo assunto, que se reconhece
-# sozinho também no ★ Ativos, onde as origens se misturam ("Unio ·", "Central Parresia 02 ·", "APS ·").
+# sozinho ("Unio ·", "Central Parresia 02 ·", "APS ·").
 # grupo -> {prefixo do id: título}. A ordem dos grupos é a ordem na barra lateral.
 GRUPOS = {
     "Planejamento": {
@@ -167,7 +153,7 @@ def main():
         manter = [g for g in antigos if g.get("sessionIds") and g.get("name") not in meus]
         ja_agrupadas = {s for g in manter for s in g["sessionIds"]}
         ativos = [sid for p in ATIVOS for sid in [resolver(p)] if sid and sid not in ja_agrupadas]
-        topo = [{"id": str(uuid.uuid4()), "name": ATIVOS_NOME, "collapsed": False, "sessionIds": ativos}]
+        topo = [{"id": str(uuid.uuid4()), "name": ATIVOS_NOME, "collapsed": False, "sessionIds": ativos}] if ativos else []
         novos = [{"id": str(uuid.uuid4()), "name": nome, "collapsed": True,
                   "sessionIds": [sid for sid, _ in itens if sid not in ja_agrupadas and sid not in ativos]}
                  for nome, itens in grupos.items()]
